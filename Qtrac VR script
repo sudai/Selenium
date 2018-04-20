@@ -1,0 +1,79 @@
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+
+import java.util.concurrent.TimeUnit;
+
+import java.util.List;
+
+public class test2 {
+    public static void main(String[] args) throws InterruptedException {
+
+        ChromeDriver driver = new ChromeDriver();
+        driver.manage().window().maximize();
+        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+        //input url
+        driver.get("https://sandbox-uscc.lavi.com/mgmt/Account/LogOn?Force=True");
+        //input user name
+        WebElement element = driver.findElement(By.id("UserName"));
+
+        element.sendKeys("wenwein@lavi.com");
+        //input password
+        WebElement password = driver.findElement(By.id("password"));
+        password.sendKeys("Lavi0808");
+        WebElement button = driver.findElement(By.className("btn-primary"));
+        button.click();
+        driver.findElementByLinkText("Clients Management").click();
+       // driver.findElement(By.className("t-icon t-minus")).click();
+        Thread.sleep(300);
+//        driver.findElement(By.xpath("//li[@class='t-item'][12]")).click();
+        driver.findElement(By.xpath("//span[contains(text(),'Testing Region Southwest')]")).click();
+//        driver.findElementByXPath("//li[@class='t-item'][1]/ul[@class='t-group']/li[@class='t-item'][1]").click();
+        driver.findElement(By.xpath("//span[contains(text(),'UAT Store 1')]")).click();
+        driver.findElement(By.xpath("//a[contains(text(),'Kiosks')]")).click();
+        driver.findElement(By.xpath("//a[contains(text(),'Preview')]")).click();
+        //go to new window
+        for (String handle : driver.getWindowHandles()) {
+            //if(handle != driver.getWindowHandle())
+            driver.switchTo().window(handle);
+        }
+        driver.manage().window().maximize();
+        for(int x=0; x<3; x++) {
+            Thread.sleep(8000);
+            driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+            driver.findElement(By.xpath("//td[@data-column-index='1']/img")).click();
+            driver.findElement(By.id("question_textName")).sendKeys("Test" + x);
+            //Thread.sleep(300);
+            driver.findElement(By.id("btn-submit")).click();
+            Thread.sleep(8000);
+            driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+            driver.findElement(By.xpath("//td[@data-column-index='2']/img")).click();
+            driver.findElement(By.id("question_textName")).sendKeys("Test" + x);
+            //Thread.sleep(300);
+            driver.findElement(By.id("btn-submit")).click();
+
+        }
+        //driver.findElementByLinkText("Kiosks").click();
+       // driver.findElementByLinkText("Preview").click();
+        //String parent = driver.getWindowHandle();
+        System.out.println("success");
+        //System.out.println(parent);
+//        for (String handle : driver.getWindowHandles()) {
+            //if(handle != driver.getWindowHandle())
+//            driver.switchTo().window(handle);
+//        }
+//        driver.manage().window().maximize();
+        //driver.findElementByLinkText("SCHEDULE NEW APPOINTMENT").click();
+        //driver.close();
+
+
+        //List<WebElement> list = driver.findElements(By.linkText(" Scheduler"));
+
+        //System.out.println(list.size());
+    }
+}
+
