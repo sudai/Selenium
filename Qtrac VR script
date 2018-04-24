@@ -10,31 +10,77 @@ import java.util.concurrent.TimeUnit;
 
 import java.util.List;
 
-public class test2 {
+public class test4 {
     public static void main(String[] args) throws InterruptedException {
 
         ChromeDriver driver = new ChromeDriver();
+        //Thread.sleep(1000);
         driver.manage().window().maximize();
-        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
-        //input url
         driver.get("https://sandbox-uscc.lavi.com/mgmt/Account/LogOn?Force=True");
-        //input user name
-        WebElement element = driver.findElement(By.id("UserName"));
+        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+        WebDriverWait wait = new WebDriverWait(driver, 10);
+        // WebElement element = wait.until(ExpectedConditions.elementToBeClickable(By.id("someid")));
+        //input url
+        //Thread.sleep(1000);
 
-        element.sendKeys("wenwein@lavi.com");
+        //input user name
+        //Thread.sleep(1000);
+        driver.findElement(By.id("UserName")).sendKeys("wenwein@lavi.com");
         //input password
+        //Thread.sleep(1000);
         WebElement password = driver.findElement(By.id("password"));
         password.sendKeys("Lavi0808");
         WebElement button = driver.findElement(By.className("btn-primary"));
         button.click();
         driver.findElementByLinkText("Clients Management").click();
-       // driver.findElement(By.className("t-icon t-minus")).click();
-        Thread.sleep(300);
+        // driver.findElement(By.className("t-icon t-minus")).click();
+        //Thread.sleep(500);
+        //Thread.sleep(1000);
 //        driver.findElement(By.xpath("//li[@class='t-item'][12]")).click();
+        wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//span[contains(text(),'Testing Region Southwest')]")));
         driver.findElement(By.xpath("//span[contains(text(),'Testing Region Southwest')]")).click();
+        //Thread.sleep(1000);
 //        driver.findElementByXPath("//li[@class='t-item'][1]/ul[@class='t-group']/li[@class='t-item'][1]").click();
         driver.findElement(By.xpath("//span[contains(text(),'UAT Store 1')]")).click();
+        //Thread.sleep(1000);
         driver.findElement(By.xpath("//a[contains(text(),'Kiosks')]")).click();
+        //Thread.sleep(1000);
+        driver.findElement(By.xpath("//a[contains(text(),'Preview')]")).click();
+        //Thread.sleep(1000);
+        //go to new window
+        for (String handle : driver.getWindowHandles()) {
+            //if(handle != driver.getWindowHandle())
+            driver.switchTo().window(handle);
+        }
+        driver.manage().window().maximize();
+        for(int x=0; x<1; x++) {
+            //Thread.sleep(8000);
+            wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//td[@data-column-index='1']/img")));
+            driver.findElement(By.xpath("//td[@data-column-index='1']/img")).click();
+//            Thread.sleep(1000);
+            driver.findElement(By.id("question_textName")).sendKeys("Test - " + x);
+//            Thread.sleep(2000);
+            driver.findElement(By.id("btn-submit")).click();
+//          Thread.sleep(8000);
+            wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//td[@data-column-index='2']/img")));
+            driver.findElement(By.xpath("//td[@data-column-index='2']/img")).click();
+//            Thread.sleep(1000);
+            driver.findElement(By.id("question_textName")).sendKeys("Test - " + x);
+//            Thread.sleep(2000);
+            driver.findElement(By.id("btn-submit")).click();
+
+        }
+        driver.close();
+        //go to new window
+        for (String handle : driver.getWindowHandles()) {
+            //if(handle != driver.getWindowHandle())
+            driver.switchTo().window(handle);
+        }
+        //driver.manage().window().maximize();
+        //station
+        driver.findElement(By.xpath("//a[contains(text(),'Stations')]")).click();
+        //Thread.sleep(1000);
+
         driver.findElement(By.xpath("//a[contains(text(),'Preview')]")).click();
         //go to new window
         for (String handle : driver.getWindowHandles()) {
@@ -42,28 +88,41 @@ public class test2 {
             driver.switchTo().window(handle);
         }
         driver.manage().window().maximize();
-        for(int x=0; x<3; x++) {
-            Thread.sleep(8000);
-            driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
-            driver.findElement(By.xpath("//td[@data-column-index='1']/img")).click();
-            driver.findElement(By.id("question_textName")).sendKeys("Test" + x);
-            //Thread.sleep(300);
-            driver.findElement(By.id("btn-submit")).click();
-            Thread.sleep(8000);
-            driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
-            driver.findElement(By.xpath("//td[@data-column-index='2']/img")).click();
-            driver.findElement(By.id("question_textName")).sendKeys("Test" + x);
-            //Thread.sleep(300);
-            driver.findElement(By.id("btn-submit")).click();
+//        Thread.sleep(1000);
+        driver.findElement(By.id("btn-available")).click();
+//        Thread.sleep(2000);
+        wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//button[contains(text(),'Next')]")));
+        driver.findElement(By.xpath("//button[contains(text(),'Next')]")).click();
+//        Thread.sleep(2000);
+        wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//button[contains(text(),'Start Service')]")));
+        driver.findElement(By.xpath("//button[contains(text(),'Start Service')]")).click();
+//        Thread.sleep(2000);
+        wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//button[contains(text(),'End Service')]")));
+        driver.findElement(By.xpath("//button[contains(text(),'End Service')]")).click();
+//        Thread.sleep(2000);
+        wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//button[contains(text(),'Next')]")));
+        driver.findElement(By.xpath("//button[contains(text(),'Next')]")).click();
+//        Thread.sleep(2000);
+        wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//button[contains(text(),'Start Service')]")));
+        driver.findElement(By.xpath("//button[contains(text(),'Start Service')]")).click();
+//        Thread.sleep(2000);
+        wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//button[contains(text(),'Edit')]")));
+        driver.findElement(By.xpath("//button[contains(text(),'Edit')]")).click();
+        driver.switchTo().frame("frameEditPopup");
+        driver.findElement(By.id("answer1")).sendKeys("Test-edit");
+        driver.findElement(By.id("answer3")).sendKeys("Test-Note");
+//        Thread.sleep(2000);
+        driver.findElement(By.id("btn-ok")).click();
+        driver.switchTo().defaultContent();
 
-        }
+
         //driver.findElementByLinkText("Kiosks").click();
-       // driver.findElementByLinkText("Preview").click();
+        // driver.findElementByLinkText("Preview").click();
         //String parent = driver.getWindowHandle();
         System.out.println("success");
         //System.out.println(parent);
 //        for (String handle : driver.getWindowHandles()) {
-            //if(handle != driver.getWindowHandle())
+        //if(handle != driver.getWindowHandle())
 //            driver.switchTo().window(handle);
 //        }
 //        driver.manage().window().maximize();
